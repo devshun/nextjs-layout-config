@@ -1,5 +1,2 @@
-const Hello = "Hello World";
-
-const greet = () => {
-    console.log(Hello);
-}
+export * from "./useLayoutConfig";
+export * from "./types";
