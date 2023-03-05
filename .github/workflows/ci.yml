@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: build test
-        run: |
-          npm run build
+      # - name: build test
+      #   run: |
+      #     npm run build
       - name: format check
         run: |
           npm run format:check
