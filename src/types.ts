@@ -1,9 +1,9 @@
 import { ReactElement, ReactNode } from "react";
 
-export type LayoutConfigItem = {
+export type LayoutConfig = {
   path: string;
   layout: (children: ReactElement) => ReactNode;
-  children?: LayoutConfig;
+  children?: LayoutConfigArray;
 };
 
-export type LayoutConfig = Array<LayoutConfig>;
+export type LayoutConfigArray = Array<LayoutConfig>;
