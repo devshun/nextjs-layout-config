@@ -20,6 +20,7 @@ export const useLayoutConfig = (layoutConfig: LayoutConfigArray) => {
       const { children, layout } = config;
 
       if (children && children.length > 0)
+        // @ts-ignore Recursive processing to obtain child layouts
         return layout(getLayout(children, restPaths));
 
       return layout;
