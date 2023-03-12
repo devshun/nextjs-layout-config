@@ -2,7 +2,7 @@ import { ReactElement, ReactNode } from "react";
 
 export type LayoutConfig = {
   path: string;
-  layout: (children: ReactElement) => ReactNode;
+  layout: (page: ReactElement) => ReactNode;
   children?: LayoutConfigArray;
 };
 

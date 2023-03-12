@@ -1,19 +1,36 @@
 import { useRouter } from "next/router";
-import { useMemo } from "react";
-import { LayoutConfig } from "./types";
+import { ReactElement } from "react";
+import { useCallback, useMemo } from "react";
+import { LayoutConfig, LayoutConfigArray } from "./types";
 
-export const useLayoutConfig = (layoutConfig: LayoutConfig) => {
+export const useLayoutConfig = (layoutConfig: LayoutConfigArray) => {
   const router = useRouter();
+  const [_, ...initialPaths] = router.pathname.split("/");
 
-  const getMatchedPath = (path: string) => {
-    const regExpedPath = new RegExp(`^${path.replace(/\*/g, "(.+)")}$`);
-    return router.pathname.match(regExpedPath);
-  };
+  const getLayout = useCallback(
+    (
+      layoutConfigArray: LayoutConfigArray,
+      paths: Array<string>
+    ): LayoutConfig["layout"] => {
+      const [currentPath, ...restPaths] = paths;
+      const config = layoutConfigArray.find((c) => c.path === currentPath);
 
-  const layout = useMemo(() => {
-    const matchedPath = Object.keys(layoutConfig).find(getMatchedPath);
-    return matchedPath ? layoutConfig[matchedPath] : null;
-  }, [router.pathname, layoutConfig]);
+      if (config === undefined) return (page: ReactElement) => page;
+
+      const { children, layout } = config;
+
+      if (children && children.length > 0)
+        return layout(getLayout(children, restPaths));
+
+      return layout;
+    },
+    []
+  );
+
+  const layout = useMemo(
+    () => getLayout(layoutConfig, initialPaths),
+    [layoutConfig, initialPaths, getLayout]
+  );
 
   return layout;
 };
