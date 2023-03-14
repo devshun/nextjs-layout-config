@@ -1,37 +1,35 @@
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import { useCallback, useMemo } from "react";
-import { LayoutConfig, LayoutConfigArray } from "./types";
+import { LayoutConfig } from "./types";
 
-export const useLayoutConfig = (layoutConfig: LayoutConfigArray) => {
+export const useLayoutConfig = (layoutConfig: LayoutConfig) => {
   const router = useRouter();
-  const [_, ...initialPaths] = router.pathname.split("/");
 
   const getLayout = useCallback(
     (
-      layoutConfigArray: LayoutConfigArray,
-      paths: Array<string>
-    ): LayoutConfig["layout"] => {
-      const [currentPath, ...restPaths] = paths;
-      const config = layoutConfigArray.find((c) => c.path === currentPath);
+      layoutConfigArray: LayoutConfig,
+      path: string
+    ): LayoutConfig[number]["layout"] => {
+      const config = layoutConfigArray.find((c) => path.startsWith(c.path));
 
-      if (config === undefined) return (page: ReactElement) => page;
+      if (config === undefined) return (page) => page;
 
       const { children, layout } = config;
 
+      const restPath = path.slice(config.path.length);
+
       if (children && children.length > 0)
-        // @ts-ignore Recursive processing to obtain child layouts
-        return layout(getLayout(children, restPaths));
+        return (page) =>
+          layout(getLayout(children, restPath)(page) as ReactElement);
 
       return layout;
     },
     []
   );
 
-  const layout = useMemo(
-    () => getLayout(layoutConfig, initialPaths),
-    [layoutConfig, initialPaths, getLayout]
+  return useMemo(
+    () => getLayout(layoutConfig, router.pathname),
+    [layoutConfig, router.pathname, getLayout]
   );
-
-  return layout;
 };
