@@ -2,7 +2,16 @@
 
 ### Installation
 
-coming soon...
+Using npm: 
+```
+npm install nextjs-layout-config
+```
+
+Using yarn:
+```
+yarn add nextjs-layout-config
+```
+
 
 ### Usage
 
