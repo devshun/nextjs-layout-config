@@ -62,7 +62,7 @@ export default function RootLayout({
 }
 ```
 
-**※Currently, server-side rendering is not supported, so it is necessary to add the "use strict" flag. We plan to improve this so that it can be used for server-side rendering in the future.**
+**※ Currently, server-side rendering is not supported, so it is necessary to add the "use strict" flag. We plan to improve this so that it can be used for server-side rendering in the future.**
 
 <br />
 
