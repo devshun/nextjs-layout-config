@@ -1,11 +1,11 @@
 {
   "name": "nextjs-layout-config",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && tsc ./src/*.ts --outDir ./dist --declaration --declarationMap --emitDeclarationOnly --isolatedModules",
+    "build": "rimraf ./dist && tsc ./src/*.ts --outDir ./dist --declaration",
     "lint": "run-p lint:*",
     "lint:tsc": "tsc ./src --noEmit",
     "lint:eslint": "eslint ./src",
