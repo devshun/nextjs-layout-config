@@ -1,3 +1,5 @@
+// useClient
+
 import { ReactElement, ReactNode } from "react";
 
 export type LayoutConfig = Array<{
