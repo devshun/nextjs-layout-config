@@ -1,5 +1,3 @@
-// useClient
-
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import { useCallback, useMemo } from "react";
