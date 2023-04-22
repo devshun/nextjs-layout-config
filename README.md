@@ -1,6 +1,6 @@
 # nextjs-layout-config
 
-This is a library for managing page layouts in Next.js applications in one place.
+This is a library for managing Per-page Layout in Next.js applications in one place.
 
 <br />
 
